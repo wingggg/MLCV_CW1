@@ -2,7 +2,7 @@
 % 
 load('face.mat')
 validationPC=0.1; %percentage of data to be used as validation data
-M=50; %the largest M eigenvalues will be picked. 
+M=10; %the largest M eigenvalues will be picked. 
 
 [Train, Test] = crossvalind('HoldOut', size(X,2), validationPC); %produce crossvalidation indices
 trainingSet=X(:,Train); %create training and test sets according to indices
@@ -25,12 +25,21 @@ eigenvalues=diag(D);
 
 %we now use the indices to extract the eigenvectors
 
+
+eigenvalues=diag(D);
+bestEigenvalues=eigenvalues(1:10);
 bestEigenvectors=V(:,1:M);
 
 
+sprintf('the %d best eigenvalues are: ',M)
+disp(bestEigenvalues);
+sprintf('the %d best eigenvectors are (vertically): ',M)
+disp(bestEigenvectors);
+showFace(avgFace);
+
 for i=1:M
     subplot(floor(M/2),M/floor(M/2),i)
-    imshow(mat2gray(reshape(bestEigenvectors(:,i),56,2576/56)));
+    showFace(bestEigenvectors(:,i));
 end
 
 
