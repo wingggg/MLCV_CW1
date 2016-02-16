@@ -7,8 +7,8 @@ M=10; %the largest M eigenvalues will be picked.
 [Train, Test] = crossvalind('HoldOut', size(X,2), validationPC); %produce crossvalidation indices
 trainingSet=X(:,Train); %create training and test sets according to indices
 testSet=X(:,Test);
-N=size(trainingSet,2);
 
+N=size(trainingSet,2);
 avgFace=mean(trainingSet,2);  %Average face
 A=trainingSet-repmat(avgFace,1,N); %matrix of phi values
 
@@ -25,17 +25,13 @@ eigenvalues=diag(D);
 
 %we now use the indices to extract the eigenvectors
 
-
 eigenvalues=diag(D);
-bestEigenvalues=eigenvalues(1:10);
-bestEigenvectors=V(:,1:M);
-
-
-
+u=eigenvalues(1:10);
+u=V(:,1:M);
 
 for i=1:M
     subplot(floor(M/2),M/floor(M/2),i)
-    showFace(bestEigenvectors(:,i));
+    showFace(u(:,i));
 end
 
 
