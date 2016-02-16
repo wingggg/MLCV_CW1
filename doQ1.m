@@ -1,8 +1,13 @@
+function [ output_args ] = doQ1( M )
+%DOQ1 Summary of this function goes here
+%   Detailed explanation goes here
+
+
 %Script for Q1
 % 
 load('face.mat')
 validationPC=0.1; %percentage of data to be used as validation data
-M=100; %the largest M eigenvalues will be picked. 
+%M=100; %the largest M eigenvalues will be picked. 
 
 [Train, Test] = crossvalind('HoldOut', size(X,2), validationPC); %produce crossvalidation indices
 trainingSet=X(:,Train); %create training and test sets according to indices
@@ -31,11 +36,11 @@ bestEigenvalues=eigenvalues(1:10);
 bestEigenvectors=V(:,1:M);
 
 
-sprintf('the %d best eigenvalues are: ',M)
-disp(bestEigenvalues);
-sprintf('the %d best eigenvectors are (vertically): ',M)
-disp(bestEigenvectors);
-showFace(avgFace);
+% sprintf('the %d best eigenvalues are: ',M)
+% disp(bestEigenvalues);
+% sprintf('the %d best eigenvectors are (vertically): ',M)
+% disp(bestEigenvectors);
+% showFace(avgFace);
 
 for i=1:M
     subplot(floor(M/2),M/floor(M/2),i)
@@ -43,4 +48,8 @@ for i=1:M
 end
 
 
+
+
+
+end
 

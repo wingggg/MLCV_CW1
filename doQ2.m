@@ -1,8 +1,12 @@
-%Script for Q1
+function [ output_args ] = doQ2( M )
+%DOQ2 Summary of this function goes here
+%   Detailed explanation goes here
+
+%Script for Q2
 % 
 load('face.mat')
 validationPC=0.1; %percentage of data to be used as validation data
-M=100; %the largest M eigenvalues will be picked. 
+%M=50; %the largest M eigenvalues will be picked. 
 
 [Train, Test] = crossvalind('HoldOut', size(X,2), validationPC); %produce crossvalidation indices
 trainingSet=X(:,Train); %create training and test sets according to indices
@@ -12,9 +16,9 @@ N=size(trainingSet,2);
 avgFace=mean(trainingSet,2);  %Average face
 A=trainingSet-repmat(avgFace,1,N); %matrix of phi values
 
-S=(1/N)*A*A'; %As asked in Q2 of spec
+S=(1/N)*A'*A; %As asked in Q2 of spec
 [V,D]=eig(S);  %V are the RIGHT eigenvectors, D are the corresponding eigenvalues
-eigenvalues=diag(D);
+eigenvalues=diag(D); %put eigenvalues in a single column vector
 
 %BLOCK BELOW MIGHT BE WRONG 
 % for index=1:M      % Kinda hacky way to find the indices of the top M eigenvalues
@@ -23,24 +27,17 @@ eigenvalues=diag(D);
 %     eigenvalues(I)=-inf; 
 % end
 
-%we now use the indices to extract the eigenvectors
-
-
-eigenvalues=diag(D);
-bestEigenvalues=eigenvalues(1:10);
 bestEigenvectors=V(:,1:M);
 
-
-sprintf('the %d best eigenvalues are: ',M)
-disp(bestEigenvalues);
-sprintf('the %d best eigenvectors are (vertically): ',M)
-disp(bestEigenvectors);
-showFace(avgFace);
+bestEigenvectors=A*bestEigenvectors;
 
 for i=1:M
-    subplot(floor(M/2),M/floor(M/2),i)
+    subplot(floor(M/2),M/floor(M/2),i);
     showFace(bestEigenvectors(:,i));
 end
 
 
+
+
+end
 
