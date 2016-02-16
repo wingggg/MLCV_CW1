@@ -36,17 +36,12 @@ bestEigenvalues=eigenvalues(1:10);
 bestEigenvectors=V(:,1:M);
 
 
-% sprintf('the %d best eigenvalues are: ',M)
-% disp(bestEigenvalues);
-% sprintf('the %d best eigenvectors are (vertically): ',M)
-% disp(bestEigenvectors);
-% showFace(avgFace);
+
 
 for i=1:M
     subplot(floor(M/2),M/floor(M/2),i)
     showFace(bestEigenvectors(:,i));
 end
-
 
 
 

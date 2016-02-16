@@ -2,7 +2,7 @@
 % 
 load('face.mat')
 validationPC=0.1; %percentage of data to be used as validation data
-M=50; %the largest M eigenvalues will be picked. 
+M=10; %the largest M eigenvalues will be picked. 
 
 [Train, Test] = crossvalind('HoldOut', size(X,2), validationPC); %produce crossvalidation indices
 trainingSet=X(:,Train); %create training and test sets according to indices
