@@ -24,6 +24,7 @@ eigenvalues=diag(D); %put eigenvalues in a single column vector
 % end
 
 U=A*V; %to extract same eigenvectors as in Q1
+U=normc(U);
 u=U(:,1:M); %top M eigenvectors
 
 for i=1:M
