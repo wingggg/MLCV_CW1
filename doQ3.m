@@ -1,4 +1,4 @@
-function [ J ] = doQ3( M )
+function [ J ] = doQ3( ) %M as argument
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -22,7 +22,7 @@ eigenvalues=diag(D); %put eigenvalues in a single column vector
 
 U=A*V; %to extract same eigenvectors as in Q1
 U=normc(U);
-u=U(:,1:M); %top M eigenvectors
+% u=U(:,1:M); %top M eigenvectors
 
 % for i=1:M
 %     subplot(floor(M/2),M/floor(M/2),i);
@@ -31,17 +31,33 @@ u=U(:,1:M); %top M eigenvectors
 
 %Q3 stuff
 %to reconstruct face n : 
-n=1; % face index
+n=20; % face index
 
 % for n=1:N
-%     omega=A(:,n)'*u;  % omega matrix (weights) for face n
+%     omega=trainingSet(:,n)'*u;  % omega matrix (weights) for face n
 %     PCA=omega*u'; %Linear combination of eigenfaces according to weights omega
-%     reconstructedFace=avgFace+PCA'; %we reconstruct the face n 
-%     
+%     reconstructedFace=avgFace+PCA'; %we reconstruct the face n      
 % end
-J=sum(eigenvalues(M+1:end)); % J reconstr error as in lectures, not sure if right 
-%figure;
-%showFace(reconstructedFace);
+
+% J=sum(eigenvalues(M+1:end)); % J reconstr error as in lectures, not sure if right 
+% figure;
+% showFace(reconstructedFace);
+
+
+%%%%%%%%%% DIFFERENT VALUES OF M'S
+Ms=[10,50,100,400];
+i=1;
+for M=Ms(1:4)
+    u=U(:,1:M); %top M eigenvectors
+    omega=trainingSet(:,n)'*u;  % omega matrix (weights) for face n
+    PCA=omega*u'; %Linear combination of eigenfaces according to weights omega
+    reconstructedFace=avgFace+PCA'; %we reconstruct the face n
+%     figure;
+    subplot(1,4,i);
+    showFace(reconstructedFace);
+    i=i+1;
+end
+%%%%%%%%%%
 
 
 end
