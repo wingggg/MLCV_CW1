@@ -1,13 +1,13 @@
 clearvars; %clears variables in workspace
-Q2
 
-%Q3 stuff
-%to reconstruct face n : 
-n=1; % face index
-omega=A(:,n)'*u;  % omega matrix (weights) for face n
-PCA=omega*u'; %Linear combination of eigenfaces according to weights omega
-reconstructedFace=avgFace+PCA'; %we reconstruct the face n 
-reconError=norm(trainingSet(n)-reconstructedFace);
+
+Ms=[10:5:468];
+Js=[];
+for M=Ms
+    Js=[Js;doQ3(M)];
+end
 figure;
-showFace(reconstructedFace);
-
+plot(Ms,Js);
+title('Reconstruction error against M');
+xlabel('M');
+ylabel('J');
