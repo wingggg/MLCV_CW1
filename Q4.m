@@ -27,25 +27,31 @@ u=U(:,1:M); %top M eigenvectors
 
 
 
+confusionMatrix=zeros(52,52);
+for j=1:size(testSet,2)
+    testImage=testSet(:,j);
+    phi=testImage-avgFace;
+    omegaTest=phi'*u;
 
-testImage=testSet(:,1);
-phi=testImage-avgFace;
-omegaTest=phi'*u;
+    norms=zeros(size(trainingSet,2),2);
+    for i=1:size(trainingSet,2)
+        norms(i,1)=norm(omegaTest-(A(:,i)'*u));
+        norms(i,2)=trainingLabels(i);
 
-norms=zeros(size(trainingSet,2),2);
-for i=1:size(trainingSet,2)
-    norms(i,1)=norm(omegaTest-(A(:,i)'*u));
-    norms(i,2)=trainingLabels(i);
-    
+    end
+
+    [mins,I]=min(norms(:,1));
+    nearestNeighbour=trainingLabels(I);
+    confusionMatrix(i,j)=confusionMatrix(i,j)+(nearestNeighbour==testLabels(j));
+
 end
 
-[mins,I]=min(norms(:,1));
-nearestNeighbour=trainingLabels(I);
 figure;
 title('nearest neighbour image')
 showFace(trainingSet(:,I));
 figure;
 title('testImage');
 showFace(testImage);
-nearestNeighbour==testLabels(1)
+
+
 
