@@ -4,8 +4,8 @@ clearvars;
 
 load('face.mat') %load given data
 tic
-validationPC=0.4; %percentage of data to be used as validation data
-M=100; %the largest M eigenvalues will be picked. 
+validationPC=0.1; %percentage of data to be used as validation data
+M=300; %the largest M eigenvalues will be picked. 
 
 [Train, Test] = crossvalind('HoldOut', size(X,2), validationPC); %produce crossvalidation indices for training and test sets
 trainingSet=X(:,Train); %create training set from X according to indices
